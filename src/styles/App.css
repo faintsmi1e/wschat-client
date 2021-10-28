@@ -1,0 +1,9 @@
+#root {
+  display: flex;
+  justify-content: center;
+}
+.App {
+  display: flex;
+  width: 800px;
+  flex-direction: column;
+}
