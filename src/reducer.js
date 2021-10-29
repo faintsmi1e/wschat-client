@@ -14,10 +14,10 @@ const reducer = (state, action) => {
         users: action.payload,
       }
 
-    case 'setMessages':
+    case 'newMessage':
       return {
         ...state,
-        messages: action.payload,
+        messages: [...state.messages, action.payload],
       }
 
       

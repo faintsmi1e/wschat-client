@@ -9,3 +9,7 @@
   justify-content: center;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+.MessageList-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
