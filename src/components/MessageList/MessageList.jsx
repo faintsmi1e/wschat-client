@@ -1,22 +1,26 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 
-import { ListGroup } from 'react-bootstrap';
 import Message from './Message/Message';
 
 import classes from './MessageList.module.css';
 
-const Messagelist = ({ messages }) => {
-  console.log(messages);
+const Messagelist = ({ userName, messages }) => {
+  const messagesRef = useRef(null);
+
+  useEffect(() => {
+    messagesRef.current.scrollTo(0, 99999);
+  }, [messages]);
   return (
-    
-      <ListGroup variant='flush' className={classes.MessageList}>
-        {messages.map((message) => (
-          <Message variant='info' message={message} key={message._id}>
-           
-          </Message>
-        ))}
-      </ListGroup>
-    
+    <div ref={messagesRef} className={classes.MessageList}>
+      {messages.map((message, index) => (
+        <Message
+          variant='info'
+          userName={userName}
+          message={message}
+          key={index}
+        ></Message>
+      ))}
+    </div>
   );
 };
 

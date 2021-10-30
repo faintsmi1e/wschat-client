@@ -22,9 +22,15 @@ function App() {
       payload: obj,
     });
     socket.emit('room:join', obj);
-    
+    const room = await axios.get(`api/room/${obj.roomName}`);
+    setMessages(room.data.messages);
   };
- 
+  const setMessages = (messages) => {
+    dispatch({
+      type: 'setMessages',
+      payload: messages,
+    });
+  };
 
   const setUsers = (users) => {
     dispatch({
@@ -33,18 +39,23 @@ function App() {
     });
   };
 
+  const addMessage = ({ text, userName, date}) => {
+    
+    dispatch({
+      type: 'newMessage',
+      payload: {
+        text,
+        userName,
+        date
+      },
+    });
+  };
+
   useEffect(() => {
-    console.log('pismo')
+    console.log('pismo');
     socket.on('room:joined', setUsers);
     socket.on('room:setUsers', setUsers);
-    socket.on('room:newMessage', message => {
-      console.log(message)
-      dispatch({
-        type: 'newMessage',
-        payload: message,
-      });
-    });
-    
+    socket.on('room:newMessage', addMessage);
   }, []);
 
   return (
@@ -52,7 +63,7 @@ function App() {
       {!state.isLogin ? (
         <Loginform onLogin={onLogin}></Loginform>
       ) : (
-        <Chat {...state} setUsers={setUsers}></Chat>
+        <Chat {...state} setUsers={setUsers} addMessage={addMessage}></Chat>
       )}
     </div>
   );

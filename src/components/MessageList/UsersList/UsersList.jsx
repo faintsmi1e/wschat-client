@@ -9,15 +9,16 @@ const Userslist = ({ users, messages }) => {
   return (
     <Accordion className={classes.UsersAccordion}defaultActiveKey="0">
       <Accordion.Item className={classes.UsersList}>
-        <Accordion.Header>Users</Accordion.Header>
-        <Accordion.Body >
-          <ListGroup>
-            {users.map((user) => (
-              <ListGroup.Item variant="info" key={user.id}>{user.userName}</ListGroup.Item>
+        
+          <ListGroup.Item>Users({users.length})</ListGroup.Item>
+          <ListGroup className={classes.UsersOnlineList}>
+          
+            {users.map((user,index) => (
+              <ListGroup.Item variant="light" key={index}>{user.userName}</ListGroup.Item>
             
             ))}
           </ListGroup>
-        </Accordion.Body>
+        
       </Accordion.Item>
     </Accordion>
     

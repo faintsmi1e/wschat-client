@@ -2,7 +2,8 @@
   max-width: 150px;
   
 }
-.UsersAccordion {
-  
+.UsersOnlineList {
+  max-height: 705px;
+  overflow: auto;
   
 }
