@@ -5,6 +5,7 @@ import Message from './Message/Message';
 import classes from './MessageList.module.css';
 
 const Messagelist = ({ userName, messages }) => {
+  console.log(messages)
   const messagesRef = useRef(null);
 
   useEffect(() => {
@@ -12,14 +13,16 @@ const Messagelist = ({ userName, messages }) => {
   }, [messages]);
   return (
     <div ref={messagesRef} className={classes.MessageList}>
-      {messages.map((message, index) => (
+      {messages.map((message, index) => {
+        
+        return (
         <Message
           variant='info'
           userName={userName}
           message={message}
           key={index}
         ></Message>
-      ))}
+      )})}
     </div>
   );
 };

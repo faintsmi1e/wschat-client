@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 // стили
 import { Form, Button, Modal } from 'react-bootstrap';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import Picker from 'emoji-picker-react';
 // эмодзи
 
 // иконки
@@ -17,6 +18,7 @@ import socket from '../../../socket';
 
 const MessageForm = ({ roomName, userName, addMessage }) => {
   const [show, setShow] = useState(false);
+  const [pickerShow, setPickerShow] = useState(false);
   const [copied, setCopied] = useState(false);
   const [inviteLinkValue, setInviteLinkValue] = useState('');
   const handleClose = () => setShow(false);
@@ -29,6 +31,19 @@ const MessageForm = ({ roomName, userName, addMessage }) => {
   const [messageValue, setMessageValue] = useState('');
 
   const [dateValue, setDateValue] = useState('');
+  const [chosenEmoji, setChosenEmoji] = useState(null);
+
+  const onEmojiClick = (event, emojiObject) => {
+    setChosenEmoji(emojiObject);
+  };
+  const chooseEmoji = (e) => {
+    console.log(e)
+    return (
+      
+        <Picker onEmojiClick={onEmojiClick} />
+      
+    )
+  }
 
   const onSendMessage = () => {
     let currentDate = Date.now();
@@ -58,7 +73,7 @@ const MessageForm = ({ roomName, userName, addMessage }) => {
           <Button variant='warning' type='button'>
             <BsFillQuestionCircleFill color='black' />
           </Button>
-          <Button variant='primary' type='button'>
+          <Button variant='primary' type='button' onClick={chooseEmoji}>
             <BsFillEmojiHeartEyesFill color='yellow' />
           </Button>
           <Form.Control
@@ -67,12 +82,14 @@ const MessageForm = ({ roomName, userName, addMessage }) => {
             type='text'
             placeholder='Message...'
           />
-          <Button variant='info' type='submit'>
+          <Button  variant='info' type='submit'>
+            
             <BsFillCursorFill color='white' />
           </Button>
+          
         </Form.Group>
       </Form>
-
+      <Picker display={'none'} onEmojiClick={onEmojiClick} />
       <Modal centered show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Invite Link</Modal.Title>

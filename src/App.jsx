@@ -51,7 +51,6 @@ function App() {
   };
 
   useEffect(() => {
-    console.log('pismo');
     socket.on('room:joined', setUsers);
     socket.on('room:setUsers', setUsers);
     socket.on('room:newMessage', addMessage);

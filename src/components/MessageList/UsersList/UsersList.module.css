@@ -1,9 +1,9 @@
 .UsersList {
   max-width: 150px;
-  
+  height: calc(100vh - 80px);
 }
 .UsersOnlineList {
-  max-height: 705px;
+  max-height: calc(100vh - 90px);
   overflow: auto;
   
 }
