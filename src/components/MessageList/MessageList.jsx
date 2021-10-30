@@ -5,7 +5,7 @@ import Message from './Message/Message';
 import classes from './MessageList.module.css';
 
 const Messagelist = ({ userName, messages }) => {
-  console.log(messages)
+  
   const messagesRef = useRef(null);
 
   useEffect(() => {

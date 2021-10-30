@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
-// стили
+
 import { Form, Button, Modal } from 'react-bootstrap';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Picker from 'emoji-picker-react';
-// эмодзи
+import EmojiModal from './EmojiModal';
 
-// иконки
+
+
 import {
   BsLink45Deg,
   BsFillEmojiHeartEyesFill,
@@ -15,18 +16,24 @@ import {
 } from 'react-icons/bs';
 
 import socket from '../../../socket';
+import Emojimodal from './EmojiModal';
 
 const MessageForm = ({ roomName, userName, addMessage }) => {
   const [show, setShow] = useState(false);
   const [pickerShow, setPickerShow] = useState(false);
   const [copied, setCopied] = useState(false);
   const [inviteLinkValue, setInviteLinkValue] = useState('');
+  const handlePickerClose = () => setPickerShow(false);
   const handleClose = () => setShow(false);
   const handleShow = () => {
     const ivniteLink = window.location.href + `?invite=${roomName}`;
     setInviteLinkValue(ivniteLink);
     setCopied(false);
     setShow(true);
+  };
+  const handlePickerShow = () => {
+    
+    setPickerShow(true);
   };
   const [messageValue, setMessageValue] = useState('');
 
@@ -36,14 +43,7 @@ const MessageForm = ({ roomName, userName, addMessage }) => {
   const onEmojiClick = (event, emojiObject) => {
     setChosenEmoji(emojiObject);
   };
-  const chooseEmoji = (e) => {
-    console.log(e)
-    return (
-      
-        <Picker onEmojiClick={onEmojiClick} />
-      
-    )
-  }
+  
 
   const onSendMessage = () => {
     let currentDate = Date.now();
@@ -73,7 +73,7 @@ const MessageForm = ({ roomName, userName, addMessage }) => {
           <Button variant='warning' type='button'>
             <BsFillQuestionCircleFill color='black' />
           </Button>
-          <Button variant='primary' type='button' onClick={chooseEmoji}>
+          <Button variant='primary' type='button' onClick={handlePickerShow}>
             <BsFillEmojiHeartEyesFill color='yellow' />
           </Button>
           <Form.Control
@@ -89,7 +89,7 @@ const MessageForm = ({ roomName, userName, addMessage }) => {
           
         </Form.Group>
       </Form>
-      <Picker display={'none'} onEmojiClick={onEmojiClick} />
+      <EmojiModal setMessageValue={setMessageValue} show={pickerShow} setShow={setPickerShow} handlePickerClose={handlePickerClose}></EmojiModal>
       <Modal centered show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Invite Link</Modal.Title>
