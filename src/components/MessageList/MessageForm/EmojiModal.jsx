@@ -10,7 +10,7 @@ const Emojimodal = ({ show,handlePickerClose, setMessageValue}) => {
     
     setMessageValue((prevState, props) => {
       
-      return prevState + chosenEmoji.emoji
+      return prevState + emojiObject.emoji
     });
     
   };
