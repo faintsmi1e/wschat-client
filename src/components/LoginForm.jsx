@@ -19,16 +19,16 @@ const Loginform = ({ onLogin }) => {
     const params = new URLSearchParams(window.location.search);
     const inviteRoom = params.get('invite');
     if (inviteRoom) {
-      isInvited = true 
+      isInvited = true;
       setRoomName(inviteRoom);
     }
-    return isInvited
+    return isInvited;
   };
-  
+
   useEffect(() => {
-    setInvited(checkInvite())
+    setInvited(checkInvite());
   }, []);
-  
+
   const login = (e) => {
     setLoading(true);
     axios

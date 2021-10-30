@@ -39,14 +39,13 @@ function App() {
     });
   };
 
-  const addMessage = ({ text, userName, date}) => {
-    
+  const addMessage = ({ text, userName, date }) => {
     dispatch({
       type: 'newMessage',
       payload: {
         text,
         userName,
-        date
+        date,
       },
     });
   };
